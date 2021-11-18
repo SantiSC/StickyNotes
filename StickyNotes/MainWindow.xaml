@@ -1,0 +1,85 @@
+﻿<mah:MetroWindow x:Class="StickyNotes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StickyNotes"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit" 
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Topmost="{Binding AppConfiguration.OnTop}"
+        ShowInTaskbar="{Binding Path=Config.ShowInTaskBar, Source={x:Static Application.Current}}"
+        Loaded="MainWindow_Loaded"
+        ResizeMode="CanResizeWithGrip"
+        ShowMaxRestoreButton="False"
+        Title="STICKY NOTE" Height="400" Width="400">
+
+    <!-- Add + button  to the left of title bar -->
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands ShowSeparators="False">
+            <Button Click="Button_Click" ToolTip="Creates a new note" >
+                <iconPacks:PackIconModern Width="16" Height="16" Kind="Add" />
+            </Button>
+            <Button Click="ConfigButton_Click" ToolTip="Opens the app settings" >
+                <iconPacks:PackIconModern Width="16" Height="16" Kind="Settings" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <!-- Add pin button to the right of the tittle bar -->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands ShowSeparators="False">
+            <ToggleButton Name="PinButton" Click="PinButton_Click" ToolTip="Pins the window to stay on top.">
+                <iconPacks:Modern Width="16" Height="16" Kind="Pin" />
+            </ToggleButton>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <!-- Add context menu to window -->
+    <mah:MetroWindow.ContextMenu>
+        <ContextMenu>
+            <CheckBox Content="Word Wrap" 
+                      IsChecked="{Binding WordWrap}" />
+            
+            <CheckBox Content="Show Line Numbers" 
+                      IsChecked="{Binding ShowLineNumbers}" />
+
+            <!-- <CheckBox Content="Show In TaskBar" 
+                      IsChecked="{Binding Path=Config.ShowInTaskBar, Source={x:Static Application.Current}}" />-->
+            <!--AppConfiguration.ShowInTaskBar-->
+
+            <!--<ComboBox mah:TextBoxHelper.Watermark="Theme" 
+                      SelectedItem="{Binding Path=Config.SelectedTheme, Source={x:Static Application.Current}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                      ItemsSource="{Binding Path=Config.Themes, Source={x:Static Application.Current}}" 
+                      DisplayMemberPath="Name" />-->
+        </ContextMenu>
+    </mah:MetroWindow.ContextMenu>
+
+    <Grid>
+        <!-- Add a dockpanel with the textbox inside -->
+        <DockPanel Margin="5, 5, 5, 5" LastChildFill="True">
+            <!--<TextBox Margin="5, 5, 5, 5" FontFamily="Dejavu Sans Mono" FontSize="14" Name="noteContent" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" BorderThickness="0"/>-->
+            <avalonEdit:TextEditor Name="avalonEditor" 
+                                   Margin="5, 5, 5, 5" 
+                                   Foreground="{DynamicResource MahApps.Brushes.Text}" 
+                                   FontFamily="Dejavu Sans Mono" 
+                                   FontSize="14pt" 
+                                   VerticalScrollBarVisibility="Auto" 
+                                   HorizontalScrollBarVisibility="Auto" 
+                                   WordWrap="{Binding WordWrap}"
+                                   ShowLineNumbers="{Binding ShowLineNumbers}" />
+            <!--AppConfiguration.ShowLineNumbers-->
+        </DockPanel>
+
+        <!-- Add tray icon -->
+        <tb:TaskbarIcon x:Name="trayIcon" IconSource=".\icon.ico" Grid.RowSpan="2" Grid.ColumnSpan="4" >
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                     <!--TODO: ADD CONTEXT MENU OPTIONS--> 
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+    </Grid>
+</mah:MetroWindow>
