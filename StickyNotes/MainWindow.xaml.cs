@@ -122,5 +122,26 @@ namespace StickyNotes
                 configWindow.Show();
             }
         }
+
+        private void avalonEditor_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers != ModifierKeys.Control)
+            {
+                return;
+            }
+
+            e.Handled = true;
+            if (e.Key == Key.Add)
+            {
+                avalonEditor.FontSize++;
+            }
+            else if (e.Key == Key.Subtract)
+            {
+                if (avalonEditor.FontSize > 1)
+                {
+                    avalonEditor.FontSize--;
+                }
+            }
+        }
     }
 }

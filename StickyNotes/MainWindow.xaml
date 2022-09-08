@@ -69,7 +69,8 @@
                                    VerticalScrollBarVisibility="Auto" 
                                    HorizontalScrollBarVisibility="Auto" 
                                    WordWrap="{Binding WordWrap}"
-                                   ShowLineNumbers="{Binding ShowLineNumbers}" />
+                                   ShowLineNumbers="{Binding ShowLineNumbers}"
+                                   KeyDown="avalonEditor_KeyDown"/>
             <!--AppConfiguration.ShowLineNumbers-->
         </DockPanel>
 
